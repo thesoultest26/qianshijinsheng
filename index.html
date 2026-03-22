@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>浮生命格·前世档案</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&display=swap');
+
+  :root {
+    --ink: #1a1008;
+    --paper: #f5eed8;
+    --paper-deep: #ede0c4;
+    --gold: #b8862a;
+    --gold-light: #d4a847;
+    --rust: #8b3a1a;
+    --sage: #5a7a5a;
+    --mist: #7a8a7a;
+    --seal: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(180,150,80,0.08) 39px, rgba(180,150,80,0.08) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(180,150,80,0.05) 39px, rgba(180,150,80,0.05) 40px);
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Decorative corner marks */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at top left, rgba(184,134,42,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(139,58,26,0.10) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    position: relative; z-index: 1;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    padding: 48px 0 36px;
+    position: relative;
+  }
+  .header-deco {
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 6px;
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+  .header h1 {
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 4px;
+    line-height: 1.2;
+    position: relative;
+    display: inline-block;
+  }
+  .header h1::before, .header h1::after {
+    content: '❧';
+    color: var(--gold);
+    font-size: 20px;
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+  }
+  .header h1::before { left: -36px; }
+  .header h1::after { right: -36px; transform: translateY(-50%) scaleX(-1); }
+  .header-sub {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--mist);
+    letter-spacing: 2px;
+  }
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 20px 0;
+    color: var(--gold);
+    font-size: 12px; letter-spacing: 4px;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+
+  /* ===== CARD ===== */
+  .card {
+    background: rgba(255,252,240,0.85);
+    border: 1px solid rgba(184,134,42,0.3);
+    border-radius: 2px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 20px rgba(100,70,20,0.08), inset 0 0 40px rgba(245,238,216,0.4);
+    position: relative;
+  }
+  .card::before {
+    content: '';
+    position: absolute; inset: 4px;
+    border: 1px solid rgba(184,134,42,0.15);
+    border-radius: 1px;
+    pointer-events: none;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--rust);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+  }
+  .card-title .cn-num {
+    font-size: 11px;
+    color: var(--gold);
+    display: block;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  /* ===== FORM ===== */
+  .form-row {
+    display: flex; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .form-group {
+    flex: 1;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .form-group label {
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .form-group input, .form-group select {
+    background: rgba(245,238,216,0.6);
+    border: 1px solid rgba(184,134,42,0.4);
+    border-radius: 1px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--gold);
+    background: rgba(255,252,245,0.9);
+  }
+  .form-group input::placeholder { color: rgba(90,70,30,0.35); }
+
+  /* ===== QUESTIONS ===== */
+  .question-block {
+    margin-bottom: 24px;
+  }
+  .question-text {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.8;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+  .question-num {
+    color: var(--gold);
+    font-size: 13px;
+    margin-right: 4px;
+  }
+  .options-grid {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .option-label {
+    display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer;
+    padding: 10px 14px;
+    border: 1px solid rgba(184,134,42,0.2);
+    border-radius: 1px;
+    transition: all 0.2s;
+    background: rgba(245,238,216,0.3);
+  }
+  .option-label:hover {
+    border-color: var(--gold);
+    background: rgba(212,168,71,0.1);
+  }
+  .option-label input[type="radio"] { display: none; }
+  .option-label.selected {
+    border-color: var(--gold);
+    background: rgba(184,134,42,0.12);
+  }
+  .option-key {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    min-width: 18px;
+    margin-top: 1px;
+  }
+  .option-text {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== BUTTON ===== */
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--rust) 0%, #6b2510 100%);
+    color: var(--paper);
+    border: none;
+    border-radius: 1px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(139,58,26,0.3);
+  }
+  .btn-submit::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  }
+  .btn-submit:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 28px rgba(139,58,26,0.4);
+    background: linear-gradient(135deg, #a04520 0%, #7a2d14 100%);
+  }
+  .btn-submit:active { transform: translateY(0); }
+
+  .btn-reset {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: transparent;
+    color: var(--mist);
+    border: 1px solid rgba(120,130,120,0.3);
+    border-radius: 1px;
+    font-family: inherit;
+    font-size: 13px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-reset:hover { border-color: var(--mist); color: var(--ink); }
+
+  /* ===== RESULT ===== */
+  #result { display: none; animation: fadeIn 0.8s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .result-header {
+    text-align: center;
+    padding: 36px 24px;
+    background: linear-gradient(160deg, rgba(26,16,8,0.95) 0%, rgba(60,35,10,0.98) 100%);
+    border: 1px solid rgba(184,134,42,0.4);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .result-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='1' fill='rgba(184,134,42,0.15)'/%3E%3C/svg%3E") repeat;
+  }
+  .result-header::after {
+    content: '';
+    position: absolute; inset: 6px;
+    border: 1px solid rgba(184,134,42,0.2);
+    pointer-events: none;
+  }
+  .result-dynasty {
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 6px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .result-name {
+    font-size: clamp(22px, 6vw, 34px);
+    font-weight: 700;
+    color: var(--paper);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .result-identity {
+    font-size: 15px;
+    color: var(--gold-light);
+    letter-spacing: 3px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .result-zodiac {
+    font-size: 12px;
+    color: rgba(245,238,216,0.5);
+    letter-spacing: 2px;
+    position: relative;
+  }
+
+  .identity-icon {
+    position: absolute;
+    bottom: 14px; right: 14px;
+    width: 54px; height: 54px;
+    opacity: 0.55;
+    filter: drop-shadow(0 0 4px rgba(184,134,42,0.3));
+  }
+
+
+
+  /* Easter egg banner */
+  .easter-egg-banner {
+    background: linear-gradient(135deg, rgba(192,57,43,0.15) 0%, rgba(184,134,42,0.15) 100%);
+    border: 1px solid rgba(192,57,43,0.4);
+    border-radius: 2px;
+    padding: 14px 20px;
+    text-align: center;
+    margin-bottom: 16px;
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(192,57,43,0); }
+    50% { box-shadow: 0 0 16px rgba(192,57,43,0.2); }
+  }
+  .easter-egg-banner .ee-label {
+    font-size: 11px; color: var(--seal); letter-spacing: 4px; margin-bottom: 4px;
+  }
+  .easter-egg-banner .ee-name {
+    font-size: 20px; font-weight: 700; color: var(--seal); letter-spacing: 3px;
+  }
+  .easter-egg-banner .ee-sub {
+    font-size: 12px; color: var(--mist); letter-spacing: 2px; margin-top: 4px;
+  }
+
+  /* Fate lines */
+  .fate-card {
+    background: rgba(255,252,240,0.85);
+    border: 1px solid rgba(184,134,42,0.25);
+    border-radius: 2px;
+    padding: 22px 20px;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .fate-card::before {
+    content: '';
+    position: absolute; inset: 3px;
+    border: 1px solid rgba(184,134,42,0.1);
+    border-radius: 1px; pointer-events: none;
+  }
+  .fate-label {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .fate-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(184,134,42,0.4), transparent);
+  }
+  .fate-value {
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.9;
+    letter-spacing: 1px;
+  }
+  .fate-value.highlight {
+    font-size: 16px;
+    color: var(--rust);
+    font-weight: 600;
+  }
+
+  .closing-line {
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 15px;
+    color: var(--mist);
+    line-height: 2;
+    letter-spacing: 2px;
+    font-style: italic;
+    border-top: 1px solid rgba(184,134,42,0.2);
+    margin-top: 4px;
+  }
+
+  .tags-row {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px;
+  }
+  .tag {
+    padding: 4px 12px;
+    border: 1px solid rgba(184,134,42,0.35);
+    border-radius: 1px;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 2px;
+    background: rgba(184,134,42,0.06);
+  }
+
+  /* Step indicators */
+  .steps {
+    display: flex; justify-content: center; gap: 6px;
+    margin-bottom: 24px;
+  }
+  .step-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(184,134,42,0.25);
+    transition: all 0.3s;
+  }
+  .step-dot.active { background: var(--gold); transform: scale(1.3); }
+
+  /* Error */
+  .error-msg {
+    font-size: 13px;
+    color: var(--seal);
+    text-align: center;
+    padding: 8px;
+    display: none;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 400px) {
+    .card { padding: 20px 16px; }
+    .form-row { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-deco">卷宗・甲子年录</div>
+    <h1>浮生命格</h1>
+    <div class="header-sub">前 世 档 案 · 试 解 因 缘</div>
+    <div class="divider">天命所归</div>
+  </div>
+
+  <!-- INPUT FORM -->
+  <div id="form-section">
+    <!-- Step 1: Birthday -->
+    <div class="card" id="step-birthday">
+      <div class="card-title">
+        <span class="cn-num">其一</span>
+        报上生辰
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>年　份</label>
+          <input type="number" id="birth-year" placeholder="如 1995" min="1900" max="2024">
+        </div>
+        <div class="form-group">
+          <label>月　份</label>
+          <input type="number" id="birth-month" placeholder="1-12" min="1" max="12">
+        </div>
+        <div class="form-group">
+          <label>日　期</label>
+          <input type="number" id="birth-day" placeholder="1-31" min="1" max="31">
+        </div>
+      </div>
+      <div class="error-msg" id="date-error">请如实填写完整生辰，方可推算命格</div>
+    </div>
+
+    <!-- Step 2: Questions -->
+    <div class="card" id="step-questions">
+      <div class="card-title">
+        <span class="cn-num">其二</span>
+        四问前缘
+      </div>
+      <div id="questions-container"></div>
+    </div>
+
+    <button class="btn-submit" onclick="calculate()">✦ 推 算 前 世 命 格 ✦</button>
+    <button class="btn-reset" onclick="resetAll()" style="display:none" id="btn-reset-top">重新推算</button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result">
+    <!-- Easter egg -->
+    <div class="easter-egg-banner" id="easter-egg" style="display:none">
+      <div class="ee-label">彩 蛋 · 命 格 共 鸣</div>
+      <div class="ee-name" id="ee-name"></div>
+      <div class="ee-sub" id="ee-sub"></div>
+    </div>
+
+    <!-- Result header card -->
+    <div class="result-header">
+      <div class="result-dynasty" id="r-dynasty"></div>
+      <div class="result-name" id="r-template-name"></div>
+      <div class="result-identity" id="r-identity"></div>
+      <div class="result-zodiac" id="r-zodiac-shengxiao"></div>
+      <svg class="identity-icon" id="r-icon" viewBox="0 0 54 54" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <!-- Fate details -->
+    <div class="fate-card">
+      <div class="fate-label">前世天赋</div>
+      <div class="fate-value highlight" id="r-talent"></div>
+    </div>
+    <div class="fate-card">
+      <div class="fate-label">前世境遇</div>
+      <div class="fate-value" id="r-story"></div>
+    </div>
+    <div class="fate-card">
+      <div class="fate-label">感　情　线</div>
+      <div class="fate-value" id="r-love"></div>
+    </div>
+    <div class="fate-card">
+      <div class="fate-label">小　圆　满</div>
+      <div class="fate-value" id="r-joy"></div>
+    </div>
+    <div class="fate-card">
+      <div class="fate-label">小　遗　憾</div>
+      <div class="fate-value" id="r-regret"></div>
+    </div>
+
+    <div class="closing-line" id="r-closing"></div>
+
+    <button class="btn-reset" onclick="resetAll()" style="margin-top:20px">↩ 重新推算前世命格</button>
+  </div>
+
+</div>
+
+<script>
+// ===== DATA =====
+
+const ZODIAC_MAP = {
+  鼠: '唐朝', 龙: '唐朝',
+  蛇: '宋朝', 鸡: '宋朝',
+  虎: '汉朝', 马: '汉朝',
+  兔: '明朝', 羊: '明朝',
+  牛: '魏晋', 猴: '魏晋',
+  狗: '清朝', 猪: '清朝',
+};
+
+const STAR_IDENTITY = {
+  白羊座: '隐居山野，时有好友来访，儿女卧廊小憩，童子砍柴。春朝林雾中，是你时隐时现的歌声',
+  金牛座: '居于旧巷深院，日日守着炉火与器物，慢磨细作，不慌不忙。实在琢磨不出了，就喝酒吧',
+  双子座: '往来市井之间，见闻万千，与人谈笑风生，随口胡诌便是一段新事。从街头吃到街尾，人人都认得你是谁家混小子',
+  巨蟹座: '边陲小城的客舍守灯人，夜夜点灯怕故人找不见回家的路，昏昏烛火下，你仿佛又看到了那个人爽朗笑声：「老板娘，再来一壶酒！」',
+  狮子座: '居于临街宽院，行事磊落，一身正气。掐指观天，天地异象尽入眼底；推演星轨之时，算筹废纸满院乱放',
+  处女座: '乱世南渡，携家眷避居江南。以修瓷、治印刻石为业，手法精湛。偶得珍器，便爱不释手，近于痴态',
+  天秤座: '饱读诗书，待人温雅得体，遇事但求平和。喜赏风月珍馐，凡事皆求顺眼舒心，从不与人相争。诗词歌赋无一不精，堪称文林大儒',
+  天蝎座: '逃离诏狱之后，住在西堤小宅，天将夜时，挑灯卖于大街小巷，烟花绽放，画舫辉煌',
+  射手座: '一身轻装远行，踏遍山河万里，风来便走，云停便歇。山川旷野间，是你自在不羁的身影',
+  摩羯座: '禅房修身，寡言心稳，默然耕耘十载。石窟佛身、壁间经文，皆由你亲手细细打磨',
+  水瓶座: '独居僻静小筑，心思奇巧，好制新奇小物。花影深处，潜心研香调粉，新品一出，坊间顷刻哄抢',
+  双鱼座: '因剑艺卓绝召入深宫，深苑独坐，唯观一方天地云卷云舒。心柔易感，见落花伤春，望归雁思人，一身侠骨，半世柔情',
+};
+
+const TEMPLATES = {
+  // A系：直言表达，笔墨为剑
+  A_odd: {
+    name: '耀世辉煌',
+    seal: '辉',
+    talent: '口才超绝，落笔惊风雨，善于以一字一句搅动人心',
+    story: '你的前世以文章立于世，仕途起伏却从未折腰。朝堂之上，你慷慨陈词，字字如刀；远谪他乡，你仍提笔不辍，那些写于落魄之时的文字，反而比得意时更令世人传颂。有人说你太锋芒，你只是笑笑，继续磨墨。',
+    love: '你爱得炽烈，藏不住，也不想藏。那人懂你，却因聚少离多，终究只剩下一摞书信压在箱底。后来你把那段情写进了诗里，成了别人口中的千古绝句。',
+    joy: '你这一生说出了很多人不敢说的话，做了很多人不敢做的事，到老了回头看，件件都无愧于心。',
+    regret: '太忙于与天下对话，有时冷落了身边那个只想和你说说家常的人。',
+    closing: '「试玉要烧三日满，辨材须待七年期。」\n你这一生，曾被火炼，也终成真玉。',
+  },
+  A_even: {
+    name: '风骨铮铮',
+    seal: '骨',
+    talent: '胆识过人，一身正气，能在最混沌的局面里认清是非',
+    story: '你的前世行事磊落，从不绕弯子。凡遇不平之事，必要出声，从不装作没看见。有人劝你明哲保身，你说不会。你被参过、被贬过，每次回来还是那副样子。后来人们才懂，你不是不怕，只是觉得值得。',
+    love: '你爱得直接，不擅迂回，说喜欢就是喜欢，说不舍就是不舍。那人起初被你吓到，后来却说，这世上最踏实的，就是你这样的人。',
+    joy: '你这一生从未向不该低头的人低过头，这件事，到老了想起来，仍觉得比什么都值。',
+    regret: '太刚则折，有几处本可转圜，却因执拗错过了，到底留了几分遗憾。',
+    closing: '「宁鸣而死，不默而生。」\n你这一世，活得有声有色，铮铮作响。',
+  },
+  // B系：细水长流，温润处世
+  B_odd: {
+    name: '温雅才情',
+    seal: '雅',
+    talent: '才情横溢，处世旷达，能在任何境遇中自得其乐',
+    story: '你的前世饱读诗书，待人温雅，遇事但求平和。喜赏风月，好食珍馐，诗词歌赋无一不精。你从不与人相争，却总在人群散去之后，留下最令人回味的那句话。有人说你活得太悠然，你只是觉得，顺眼舒心，便是人生正道。',
+    love: '你爱得温柔细腻，从不急于表白，而是把心意藏进一首诗、一盏茶、一个眼神里。那人懂你，所以也从不催你，两个人就这样慢慢走到了白头。',
+    joy: '你找到了在任何处境下都能自得其乐的方式，这份从容，是旁人羡慕不来的。',
+    regret: '太过温和，有时该争的没有争，该说的没有说，到底还是亏待了自己几分。',
+    closing: '「竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。」\n前世的你，从未真正输过。',
+  },
+  B_even: {
+    name: '烟水闲人',
+    seal: '闲',
+    talent: '心思细腻，善于观察，能从最寻常的器物与光景中发现旁人忽略的美',
+    story: '你的前世不争不抢，只埋头做自己的事。旁人说你不知进取，你也只是笑笑。你有自己的节奏，不慌不忙，从不将就。实在想不通了，便放下来喝酒，等灵感自己回来。多年后，人们才发现你留下的东西，比那些争来抢去的人都经得住时间。',
+    love: '你的感情如同你手里的器物，不急，慢慢来，做好了才拿出来。那人等过你很久，后来说，等的那段时光，是这辈子最安心的日子。',
+    joy: '你这一生做出了几件连自己都满意的东西，那种感觉，比任何称赞都踏实。',
+    regret: '太沉浸于自己的世界，有时忘了抬头看看身边的人是否也还在。',
+    closing: '「此心安处是吾乡。」\n你这一世，没有惊天动地，却温柔而深沉地活过了。',
+  },
+  // C系：随性洒脱，来去自如
+  C_odd: {
+    name: '逍遥自在',
+    seal: '遥',
+    talent: '天生不羁，走到哪里都能活出一片天，又总在最意想不到的地方留下印记',
+    story: '你的前世本可走一条稳妥的路，偏偏不肯。你觉得循规蹈矩太无聊，宁愿在热闹的人间里混着，广结人缘，见识各色人物。你看过的人情冷暖比任何书本都生动，那些阅历刻在骨子里，成了旁人学不来的底气。',
+    love: '你遇见过很多人，也被很多人喜欢。爱来了你全力以赴，走了你也不强留，相信缘分自有定数。只是有一个人，你其实没走彻底，只是再也没有回头。',
+    joy: '你这一生真正快活过，那种发自骨子里的轻盈，是再多金银也换不来的。',
+    regret: '走得太快，有些根没来得及扎，到老了偶尔会觉得，少了几分厚重。',
+    closing: '「别人笑我太疯癫，我笑他人看不穿。」\n你这一世，活给了自己，无怨无悔。',
+  },
+  C_even: {
+    name: '浮云过客',
+    seal: '云',
+    talent: '一身轻功走天下，眼界开阔，心无挂碍，山川旷野皆是归处',
+    story: '你的前世从不在一处久留，每隔几年便换一种活法。人们记得你来过，却总在你离开后才后悔没多留你几日。你不是不懂留恋，只是总有什么东西在前方召唤你，让你停不下来。有人问你可曾想过安定，你想了很久，没有回答。',
+    love: '你爱过，爱得很深，但你的脚停不下来。那人站在原地目送你，你回头看过一次，最终还是走了。那是你这一生最深的遗憾，也是最真实的自己。',
+    joy: '你这一生见过的山河，比任何人都多，那些风景刻在骨子里，死了也带得走。',
+    regret: '总在离开，总在告别，有时深夜想起，不知那些留下的人，是否还好。',
+    closing: '「行到水穷处，坐看云起时。」\n你这一世，是一场盛大而孤独的漫游。',
+  },
+  // D系：沉默深耕，以一生赴一事
+  D_odd: {
+    name: '清寂坚守',
+    seal: '守',
+    talent: '意志如铁，默然耕耘，能把一件事做到旁人无法企及的深度',
+    story: '你的前世寡言心稳，认准一件事便用一生去做。外人看你清苦，你却觉得踏实。你不是没有野心，只是你的野心藏得很深，不轻易示人。多年以后，你做成了那件事，而那些曾经嘲笑你的人，连你的名字都未必记得住。',
+    love: '你的感情藏得极深，不善言辞，却是最坚定的那种。那人懂你的沉默，也懂你每一个细微的动作背后藏着的情意。后来那人先走了，你在原来的位置又坐了很多年。',
+    joy: '你完成了那件事，用一生完成的那件事，它会在你离开之后继续存在，这已经足够了。',
+    regret: '太过专注于手中之事，有些流逝的光阴，是再也回不来了。',
+    closing: '「不入虎穴，焉得虎子。」\n你这一生，以命换来的，都是真的。',
+  },
+  D_even: {
+    name: '幽篁隐士',
+    seal: '隐',
+    talent: '深思熟虑，内敛沉静，将毕生所悟化为一门旁人难以触及的深厚学问',
+    story: '你的前世选择了隐居，不是逃避，而是因为看透了某些东西。你不爱热闹，却也不拒绝人间烟火，只是始终保持着一点距离，冷静地旁观。后来你把那些年的所思所感写了下来，没有立刻示人，只是放在那里，等真正有缘的人。那本书辗转流传，影响了一代又一代人，而你早已不在人世。',
+    love: '你只深爱过一个人，两人之间话不多，却什么都懂。后来分开了，你把对方用过的东西原样留着，再没动过。',
+    joy: '你这一生活得纯粹，每一分心力都没有浪费在不值得的地方，这已是莫大的圆满。',
+    regret: '太早看破，少了几分本该有的热烈与莽撞，偶尔会想，若当年冲动一回，又会是怎样。',
+    closing: '「独坐幽篁里，弹琴复长啸。」\n你这一世，清净而深远，如竹，如松。',
+  },
+};
+const EASTER_EGGS = {
+  A: { name: '白居易命格', sub: '诗传万世，官海沉浮皆成诗', zodiac: ['狮子座','射手座','双子座','水瓶座'], shengxiao: ['鼠','龙','猴'] },
+  B: { name: '苏轼命格', sub: '一蓑烟雨任平生，千古第一旷达人', zodiac: ['狮子座','射手座','双子座','水瓶座'], shengxiao: ['鼠','龙','猴'] },
+  C: { name: '唐寅命格', sub: '风流才子，笑看浮云过', zodiac: ['狮子座','射手座','双子座','水瓶座'], shengxiao: ['鼠','龙','猴'] },
+  D: { name: '班超命格', sub: '投笔从戎，以身铸史', zodiac: ['狮子座','射手座','双子座','水瓶座'], shengxiao: ['鼠','龙','猴'] },
+};
+
+const QUESTIONS = [
+  {
+    text: '前世某夜，你独坐灯下，窗外月色正好，心中忽生一事未了之感。你会——',
+    options: [
+      { key: 'A', text: '提笔写下来，不管好不好，先让这念头有个去处' },
+      { key: 'B', text: '倒一杯酒，慢慢地想，把这感觉咂摸清楚再说' },
+      { key: 'C', text: '推门出去走走，月色这么好，何必困在屋子里' },
+      { key: 'D', text: '把它压下去，明日还有正事，此刻不是多想的时候' },
+    ]
+  },
+  {
+    text: '前世你初入一座陌生城镇，两眼一抹黑，身上盘缠不多。你第一件事会是——',
+    options: [
+      { key: 'A', text: '找到最热闹的地方，和人攀谈，很快便摸清了门道' },
+      { key: 'B', text: '先找一处安静的茶馆坐下，观察一番，再从容行事' },
+      { key: 'C', text: '随便走走，看哪里有趣就往哪里去，走一步算一步' },
+      { key: 'D', text: '打听清楚此地的规矩与人情，制定好计划再动' },
+    ]
+  },
+  {
+    text: '有人问你：你这一生，最放不下的是什么？你的回答是——',
+    options: [
+      { key: 'A', text: '那些我说出口的话，和那些来不及说出口的话' },
+      { key: 'B', text: '某个人，某个傍晚，某杯还没喝完就分别的茶' },
+      { key: 'C', text: '没什么放不下的，我只是有时想起来，会笑一笑' },
+      { key: 'D', text: '一件没做完的事，它还等着我，我不能就这么走了' },
+    ]
+  },
+  {
+    text: '前世你年迈，有年轻人登门求教，问你此生最重要的领悟。你会说——',
+    options: [
+      { key: 'A', text: '说真话。哪怕得罪人，哪怕没人听，也要说真话' },
+      { key: 'B', text: '凡事不必太较劲，风来了就随它去，反而走得更远' },
+      { key: 'C', text: '活得像自己。这世上最难的事，就是这一件' },
+      { key: 'D', text: '认准一件事，把它做完，做好，其余的都是多余' },
+    ]
+  }
+];
+
+// ===== IDENTITY ICONS (SVG paths, ancient style) =====
+const IDENTITY_ICONS = {
+  '山野隐居': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="4,42 16,18 24,30 32,14 44,32 50,42"/>
+    <line x1="2" y1="42" x2="52" y2="42"/>
+    <path d="M22,10 Q27,6 32,10"/>
+    <path d="M25,8 Q27,5 29,8"/>
+  </g>`,
+  '炉火器物': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10,24 Q10,18 27,18 Q44,18 44,24 L44,30 L10,30 Z" fill="rgba(212,168,71,0.12)"/>
+    <path d="M10,24 Q4,24 4,28 Q4,30 10,30"/>
+    <path d="M14,30 L12,44 L42,44 L40,30 Z" fill="rgba(212,168,71,0.08)"/>
+    <line x1="12" y1="44" x2="8" y2="48"/>
+    <line x1="42" y1="44" x2="46" y2="48"/>
+    <line x1="8" y1="48" x2="46" y2="48"/>
+    <line x1="38" y1="10" x2="30" y2="22"/>
+    <rect x="36" y="6" width="10" height="6" rx="1" transform="rotate(-35 38 10)" fill="rgba(212,168,71,0.2)"/>
+  </g>`,
+  '市井游荡': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12,10 L12,46 Q12,48 14,48 L40,48 Q42,48 42,46 L42,10 Q42,8 40,8 L14,8 Q12,8 12,10 Z" fill="rgba(212,168,71,0.08)"/>
+    <line x1="18" y1="8" x2="18" y2="48"/>
+    <line x1="22" y1="16" x2="38" y2="16"/>
+    <line x1="22" y1="22" x2="38" y2="22"/>
+    <line x1="22" y1="28" x2="38" y2="28"/>
+    <line x1="22" y1="34" x2="38" y2="34"/>
+    <line x1="22" y1="40" x2="32" y2="40"/>
+    <rect x="22" y="12" width="16" height="6" rx="1" fill="rgba(212,168,71,0.15)"/>
+  </g>`,
+  '守灯人': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27,22 Q23,16 27,10 Q29,14 33,12 Q31,18 27,22Z" fill="rgba(212,168,71,0.3)"/>
+    <line x1="27" y1="22" x2="27" y2="26"/>
+    <path d="M18,26 Q18,32 27,32 Q36,32 36,26 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M16,26 Q16,34 27,34 Q38,34 38,26"/>
+    <line x1="27" y1="34" x2="27" y2="44"/>
+    <path d="M18,44 Q18,48 27,48 Q36,48 36,44 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M16,44 Q16,48 27,48 Q38,48 38,44"/>
+  </g>`,
+  '观星吏': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="27,8 30,20 42,20 33,27 36,40 27,33 18,40 21,27 12,20 24,20" fill="rgba(212,168,71,0.15)"/>
+    <circle cx="44" cy="10" r="1.5" fill="#d4a847"/>
+    <circle cx="10" cy="14" r="1" fill="#d4a847"/>
+    <circle cx="46" cy="38" r="1" fill="#d4a847"/>
+  </g>`,
+  '金石器物': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="20" y="6" width="14" height="10" rx="2" fill="rgba(212,168,71,0.15)"/>
+    <rect x="23" y="16" width="8" height="6" rx="1" fill="rgba(212,168,71,0.1)"/>
+    <rect x="12" y="22" width="30" height="26" rx="1" fill="rgba(212,168,71,0.1)"/>
+    <line x1="20" y1="28" x2="34" y2="28"/>
+    <line x1="27" y1="28" x2="27" y2="42"/>
+    <line x1="20" y1="34" x2="27" y2="34"/>
+    <path d="M20,42 L20,36 Q20,34 22,34"/>
+    <path d="M34,28 L34,38 Q34,42 30,42 L28,42"/>
+  </g>`,
+  '文林大儒': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="27" cy="42" rx="18" ry="7" fill="rgba(212,168,71,0.1)"/>
+    <ellipse cx="27" cy="40" rx="12" ry="4" fill="rgba(212,168,71,0.2)"/>
+    <line x1="36" y1="8" x2="26" y2="38"/>
+    <path d="M26,38 Q23,42 22,46 Q25,43 29,40 Z" fill="rgba(212,168,71,0.35)"/>
+    <circle cx="37" cy="7" r="2" fill="rgba(212,168,71,0.3)"/>
+    <ellipse cx="22" cy="41" rx="5" ry="2" fill="rgba(212,168,71,0.25)" stroke="none"/>
+  </g>`,
+  '西堤夜行': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4,44 Q13,40 22,44 Q31,48 40,44 Q49,40 52,44" stroke-width="1"/>
+    <path d="M4,48 Q13,44 22,48 Q31,52 40,48 Q49,44 52,48" stroke-width="0.8" opacity="0.5"/>
+    <line x1="4" y1="32" x2="22" y2="32"/>
+    <line x1="4" y1="36" x2="22" y2="36"/>
+    <line x1="4" y1="32" x2="4" y2="36"/>
+    <line x1="10" y1="28" x2="10" y2="36"/>
+    <line x1="16" y1="28" x2="16" y2="36"/>
+    <line x1="22" y1="32" x2="22" y2="44"/>
+    <line x1="32" y1="32" x2="32" y2="44"/>
+    <line x1="32" y1="32" x2="50" y2="32"/>
+    <line x1="32" y1="36" x2="50" y2="36"/>
+    <line x1="50" y1="32" x2="50" y2="36"/>
+    <line x1="38" y1="28" x2="38" y2="36"/>
+    <line x1="44" y1="28" x2="44" y2="36"/>
+    <path d="M4,32 Q13,22 22,32" fill="none"/>
+    <path d="M32,32 Q41,22 50,32" fill="none"/>
+  </g>`,
+  '云游驿客': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16,30 Q27,16 38,30" fill="rgba(212,168,71,0.12)"/>
+    <line x1="27" y1="18" x2="27" y2="13"/>
+    <line x1="34" y1="20" x2="37" y2="16"/>
+    <line x1="20" y1="20" x2="17" y2="16"/>
+    <line x1="37" y1="26" x2="42" y2="25"/>
+    <line x1="17" y1="26" x2="12" y2="25"/>
+    <path d="M4,36 Q13,32 22,36 Q31,40 40,36 Q49,32 52,36"/>
+    <path d="M4,42 Q13,38 22,42 Q31,46 40,42 Q49,38 52,42"/>
+    <path d="M18,36 Q27,34 36,36 L34,40 L20,40 Z" fill="rgba(212,168,71,0.15)"/>
+    <line x1="27" y1="34" x2="27" y2="28"/>
+    <path d="M27,28 L34,32 L27,34 Z" fill="rgba(212,168,71,0.2)"/>
+  </g>`,
+  '石窟匠人': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="27" cy="14" r="8" fill="rgba(212,168,71,0.08)"/>
+    <circle cx="27" cy="14" r="5" fill="rgba(212,168,71,0.12)"/>
+    <path d="M24,10 Q27,6 30,10" fill="rgba(212,168,71,0.2)"/>
+    <path d="M18,22 Q14,30 14,44 L40,44 Q40,30 36,22 Q32,19 27,19 Q22,19 18,22 Z" fill="rgba(212,168,71,0.07)"/>
+    <line x1="27" y1="19" x2="27" y2="22"/>
+    <path d="M18,32 Q22,36 27,36 Q32,36 36,32"/>
+    <ellipse cx="27" cy="37" rx="5" ry="2" fill="rgba(212,168,71,0.15)"/>
+    <path d="M20,24 Q18,32 16,40"/>
+    <path d="M34,24 Q36,32 38,40"/>
+    <path d="M14,46 Q20,43 27,44 Q34,43 40,46"/>
+    <path d="M17,48 Q22,45 27,46 Q32,45 37,48"/>
+  </g>`,
+  '炼香师': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27,50 Q27,38 27,32"/>
+    <path d="M27,42 Q20,38 16,34"/>
+    <path d="M27,40 Q34,36 38,32"/>
+    <path d="M16,34 Q12,28 18,26 Q20,30 16,34 Z" fill="rgba(212,168,71,0.12)"/>
+    <path d="M38,32 Q44,26 40,24 Q36,28 38,32 Z" fill="rgba(212,168,71,0.12)"/>
+    <path d="M27,32 Q18,28 16,20 Q22,18 27,24 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M27,32 Q36,28 38,20 Q32,18 27,24 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M27,32 Q20,22 20,12 Q26,12 27,20 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M27,32 Q34,22 34,12 Q28,12 27,20 Z" fill="rgba(212,168,71,0.1)"/>
+    <path d="M27,28 Q22,24 22,18 Q26,18 27,22 Z" fill="rgba(212,168,71,0.2)"/>
+    <path d="M27,28 Q32,24 32,18 Q28,18 27,22 Z" fill="rgba(212,168,71,0.2)"/>
+    <circle cx="27" cy="22" r="3" fill="rgba(212,168,71,0.3)"/>
+  </g>`,
+  '深宫剑客': `<g fill="none" stroke="#d4a847" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M27,6 L30,34 L27,38 L24,34 Z" fill="rgba(212,168,71,0.12)"/>
+    <line x1="27" y1="8" x2="27" y2="36"/>
+    <line x1="28" y1="10" x2="29" y2="20" stroke-width="0.8" opacity="0.7"/>
+    <path d="M16,34 Q16,38 22,38 L27,36 L32,38 Q38,38 38,34 Q38,30 32,30 L27,32 L22,30 Q16,30 16,34 Z" fill="rgba(212,168,71,0.2)"/>
+    <rect x="24" y="38" width="6" height="12" rx="1" fill="rgba(212,168,71,0.15)"/>
+    <line x1="24" y1="41" x2="30" y2="41"/>
+    <line x1="24" y1="44" x2="30" y2="44"/>
+    <line x1="24" y1="47" x2="30" y2="47"/>
+    <ellipse cx="27" cy="51" rx="4" ry="2" fill="rgba(212,168,71,0.25)"/>
+  </g>`,
+};
+function getIconForIdentity(identity) {
+  if (identity.includes('山野') || identity.includes('林雾') || identity.includes('歌声')) return IDENTITY_ICONS['山野隐居'];
+  if (identity.includes('炉火') || identity.includes('器物') || identity.includes('旧巷') || identity.includes('铁砧')) return IDENTITY_ICONS['炉火器物'];
+  if (identity.includes('市井') || identity.includes('混小子') || identity.includes('说书') || identity.includes('胡诌')) return IDENTITY_ICONS['市井游荡'];
+  if (identity.includes('守灯') || identity.includes('客舍') || identity.includes('烛火')) return IDENTITY_ICONS['守灯人'];
+  if (identity.includes('观天') || identity.includes('星轨') || identity.includes('算筹')) return IDENTITY_ICONS['观星吏'];
+  if (identity.includes('制瓷') || identity.includes('修瓷') || identity.includes('珍器') || identity.includes('刻石')) return IDENTITY_ICONS['金石器物'];
+  if (identity.includes('诗书') || identity.includes('诗词') || identity.includes('文林') || identity.includes('大儒')) return IDENTITY_ICONS['文林大儒'];
+  if (identity.includes('诏狱') || identity.includes('西堤') || identity.includes('画舫') || identity.includes('挑灯')) return IDENTITY_ICONS['西堤夜行'];
+  if (identity.includes('轻装远行') || identity.includes('山川旷野') || identity.includes('云停')) return IDENTITY_ICONS['云游驿客'];
+  if (identity.includes('禅房') || identity.includes('石窟') || identity.includes('经文') || identity.includes('佛身')) return IDENTITY_ICONS['石窟匠人'];
+  if (identity.includes('研香') || identity.includes('炼香') || identity.includes('小筑') || identity.includes('哄抢')) return IDENTITY_ICONS['炼香师'];
+  if (identity.includes('剑') || identity.includes('深宫') || identity.includes('侠骨')) return IDENTITY_ICONS['深宫剑客'];
+  return IDENTITY_ICONS['观星吏']; // default
+}
+
+// ===== INIT =====
+function initQuestions() {
+  const container = document.getElementById('questions-container');
+  container.innerHTML = '';
+  QUESTIONS.forEach((q, i) => {
+    const block = document.createElement('div');
+    block.className = 'question-block';
+    block.innerHTML = `
+      <div class="question-text"><span class="question-num">第${['一','二','三','四'][i]}问</span>${q.text}</div>
+      <div class="options-grid" id="q${i}-options">
+        ${q.options.map(o => `
+          <label class="option-label" onclick="selectOption(this, ${i})">
+            <input type="radio" name="q${i}" value="${o.key}">
+            <span class="option-key">${o.key}</span>
+            <span class="option-text">${o.text}</span>
+          </label>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(block);
+    if (i < QUESTIONS.length - 1) {
+      const sep = document.createElement('div');
+      sep.className = 'divider';
+      sep.style.margin = '20px 0';
+      sep.textContent = '· · ·';
+      container.appendChild(sep);
+    }
+  });
+}
+
+function selectOption(label, qIndex) {
+  document.querySelectorAll(`#q${qIndex}-options .option-label`).forEach(l => l.classList.remove('selected'));
+  label.classList.add('selected');
+}
+
+// ===== CALC =====
+function getZodiac(year) {
+  const animals = ['猴','鸡','狗','猪','鼠','牛','虎','兔','龙','蛇','马','羊'];
+  return animals[((year - 1900) % 12 + 12) % 12];
+}
+
+function getStar(month, day) {
+  const boundaries = [
+    [1,20,'摩羯座'],[2,19,'水瓶座'],[3,21,'双鱼座'],[4,20,'白羊座'],
+    [5,21,'金牛座'],[6,22,'双子座'],[7,23,'巨蟹座'],[8,23,'狮子座'],
+    [9,23,'处女座'],[10,24,'天秤座'],[11,23,'天蝎座'],[12,22,'射手座'],[12,31,'摩羯座']
+  ];
+  for (let [m, d, name] of boundaries) {
+    if (month < m || (month === m && day <= d)) return name;
+  }
+  return '摩羯座';
+}
+
+function calculate() {
+  const year = parseInt(document.getElementById('birth-year').value);
+  const month = parseInt(document.getElementById('birth-month').value);
+  const day = parseInt(document.getElementById('birth-day').value);
+  const errEl = document.getElementById('date-error');
+
+  if (!year || !month || !day || year < 1900 || year > 2024 || month < 1 || month > 12 || day < 1 || day > 31) {
+    errEl.style.display = 'block';
+    return;
+  }
+  errEl.style.display = 'none';
+
+  // Collect answers
+  const answers = [];
+  for (let i = 0; i < 4; i++) {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    if (!sel) { alert(`请回答第${['一','二','三','四'][i]}问`); return; }
+    answers.push(sel.value);
+  }
+
+  // Count answers
+  const count = { A: 0, B: 0, C: 0, D: 0 };
+  answers.forEach(a => count[a]++);
+  const maxCount = Math.max(...Object.values(count));
+  const winners = Object.keys(count).filter(k => count[k] === maxCount);
+  const baseKey = winners[0]; // A/B/C/D
+
+  const zodiac = getZodiac(year);
+  const star = getStar(month, day);
+
+  // 30%概率命中本命，70%概率命运错乱，随机配入他朝他职
+  let dynasty, identity;
+  const allDynasties = ['唐朝','宋朝','汉朝','明朝','魏晋','清朝'];
+  const allIdentities = Object.values(STAR_IDENTITY);
+  if (Math.random() < 0.3) {
+    dynasty = ZODIAC_MAP[zodiac];
+    identity = STAR_IDENTITY[star];
+  } else {
+    const ownDynasty = ZODIAC_MAP[zodiac];
+    const ownIdentity = STAR_IDENTITY[star];
+    const otherDynasties = allDynasties.filter(d => d !== ownDynasty);
+    const otherIdentities = allIdentities.filter(id => id !== ownIdentity);
+    dynasty = otherDynasties[Math.floor(Math.random() * otherDynasties.length)];
+    identity = otherIdentities[Math.floor(Math.random() * otherIdentities.length)];
+  }
+
+  // 生辰维度：出生日 + 年份末位 决定奇偶支线
+  const birthParity = (day + (year % 10)) % 2 === 1 ? 'odd' : 'even';
+  const templateKey = baseKey + '_' + birthParity;
+  const tpl = TEMPLATES[templateKey];
+
+  // Easter egg check
+  const eeData = EASTER_EGGS[baseKey];
+  const isAllSame = answers.every(a => a === answers[0]);
+  const eeMatch = isAllSame &&
+    eeData.shengxiao.includes(zodiac) &&
+    eeData.zodiac.includes(star);
+
+  // Render
+  // Set identity icon
+  const iconSVG = getIconForIdentity(identity);
+  document.getElementById('r-icon').innerHTML = iconSVG;
+
+  document.getElementById('r-dynasty').textContent = `◈ ${dynasty} ◈`;
+  document.getElementById('r-template-name').textContent = tpl.name;
+  document.getElementById('r-identity').textContent = identity;
+  document.getElementById('r-zodiac-shengxiao').textContent = '';
+  document.getElementById('r-talent').textContent = tpl.talent;
+  document.getElementById('r-story').textContent = tpl.story;
+  document.getElementById('r-love').textContent = tpl.love;
+  document.getElementById('r-joy').textContent = tpl.joy;
+  document.getElementById('r-regret').textContent = tpl.regret;
+  document.getElementById('r-closing').textContent = tpl.closing;
+
+  const eeEl = document.getElementById('easter-egg');
+  if (eeMatch) {
+    document.getElementById('ee-name').textContent = eeData.name;
+    document.getElementById('ee-sub').textContent = eeData.sub;
+    eeEl.style.display = 'block';
+  } else {
+    eeEl.style.display = 'none';
+  }
+
+  document.getElementById('form-section').style.display = 'none';
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function resetAll() {
+  document.getElementById('birth-year').value = '';
+  document.getElementById('birth-month').value = '';
+  document.getElementById('birth-day').value = '';
+  document.getElementById('date-error').style.display = 'none';
+  initQuestions();
+  document.getElementById('form-section').style.display = 'block';
+  document.getElementById('result').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Init on load
+initQuestions();
+</script>
+</body>
+</html>
